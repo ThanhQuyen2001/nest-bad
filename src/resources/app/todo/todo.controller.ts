@@ -8,7 +8,7 @@ import { Can } from 'src/decorator/permission/permission.decorator';
 
 @Controller('todos')
 export class TodoController {
-    constructor(@Inject(TodoService) private readonly todoService: TodoService) { }
+    constructor(@Inject('TodoService') private readonly todoService: TodoService) { }
 
     @Get()
     @Can('list', 'todos')

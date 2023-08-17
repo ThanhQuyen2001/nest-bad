@@ -9,6 +9,9 @@ import { TodoEntity } from './todo.entity';
         TypeOrmModule.forFeature([TodoEntity])
     ],
     controllers: [TodoController],
-    providers: [TodoService],
+    providers: [{
+        provide: 'TodoService',
+        useClass: process.env.NODE_ENV == 'developer' ? TodoService : TodoService
+    }],
 })
 export class TodoModule { };

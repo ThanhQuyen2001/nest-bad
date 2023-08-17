@@ -7,7 +7,7 @@ import { ResponseError } from 'src/decorator/response-data/response-error.base';
 
 @Controller('users')
 export class UserController {
-    constructor(@Inject(UserService) private userService: UserService) { }
+    constructor(@Inject('UserService') private userService: UserService) { }
     @Post()
     @Can('create', 'users')
     async createUser(@Body() body: CreateUserDto) {
