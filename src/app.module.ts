@@ -3,7 +3,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { TokenGuard } from './guard/auth.guard';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
-import { UserModule } from './resources/user/user.module';
+import { UserModule } from './resources/app/user/user.module';
 
 @Module({
   imports: [
