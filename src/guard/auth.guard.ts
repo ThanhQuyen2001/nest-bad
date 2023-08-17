@@ -23,11 +23,31 @@ const permissions = [
     {
         action: 'read',
         subject: 'users'
+    },
+    {
+        action: 'create',
+        subject: 'todos'
+    },
+    {
+        action: 'update',
+        subject: 'todos'
+    },
+    {
+        action: 'delete',
+        subject: 'todos'
+    },
+    {
+        action: 'list',
+        subject: 'todos'
+    },
+    {
+        action: 'read',
+        subject: 'todos'
     }
 ]
 
 function hasPermission(can: CanDto): boolean {
-    return permissions.includes(can)
+    return permissions.some(p => p.action === can.action && p.subject === p.subject)
 }
 
 @Injectable()
@@ -37,9 +57,6 @@ export class TokenGuard implements CanActivate {
         context: ExecutionContext,
     ): boolean | Promise<boolean> | Observable<boolean> {
         const can = this.reflector.get<CanDto>('can', context.getHandler());
-        if (hasPermission(can)) {
-            return true
-        }
-        return false
+        return hasPermission(can)
     }
 }

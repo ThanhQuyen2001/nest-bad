@@ -4,10 +4,12 @@ import { TokenGuard } from './guard/auth.guard';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { UserModule } from './resources/app/user/user.module';
+import { TodoModule } from './resources/app/todo/todo.module';
 
 @Module({
   imports: [
     UserModule,
+    TodoModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',

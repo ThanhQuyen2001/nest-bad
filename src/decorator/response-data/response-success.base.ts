@@ -1,20 +1,13 @@
 export class ResponseSuccess<D> {
-    data: {
-        data: any,
-        pagination: any
-    };
+    data: any;
     code: number;
     message: string;
     constructor(
-        entry: D | D[],
-        pagination: any,
+        data: D | D[],
         code: number,
         message: string
     ) {
-        this.data = {
-            data: entry,
-            pagination: pagination
-        }
+        this.data = data
         this.code = code
         this.message = message
 
