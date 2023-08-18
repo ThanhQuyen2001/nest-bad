@@ -9,6 +9,9 @@ import { UserEntity } from './user.entity';
         TypeOrmModule.forFeature([UserEntity])
     ],
     controllers: [UserController],
-    providers: [UserService],
+    providers: [{
+        provide: 'UserService',
+        useClass: process.env.NODE_ENV == 'developer' ? UserService : UserService
+    }],
 })
 export class UserModule { };

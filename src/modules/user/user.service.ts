@@ -1,5 +1,5 @@
 import { InjectRepository } from "@nestjs/typeorm";
-import { CreateUserDto } from "./user-create.dto";
+import { CreateUserDto } from "../../interfaces/user/user-create.dto";
 import { UserEntity } from "./user.entity";
 import { Repository } from 'typeorm';
 import { Injectable } from "@nestjs/common";
@@ -11,7 +11,7 @@ export class UserService {
         let data = this.userEntity.create(user)
         return await this.userEntity.save(data)
     }
-
+    
     async getAllUser() {
         let data = await this.userEntity.find({
             select: ['firstname', 'lastname', 'age']

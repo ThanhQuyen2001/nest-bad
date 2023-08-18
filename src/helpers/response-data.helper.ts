@@ -1,15 +1,16 @@
-export class ResponseError<D> {
-    error: D | D[];
+export class ResponseData<D> {
+    data: any;
     code: number;
     message: string;
     constructor(
-        error: D | D[],
+        data: D | D[],
         code: number,
         message: string
     ) {
-        this.error = error
+        this.data = data
         this.code = code
         this.message = message
+
         return this
     }
 }

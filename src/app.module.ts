@@ -1,13 +1,15 @@
 import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
-import { TokenGuard } from './guard/auth.guard';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
-import { UserModule } from './resources/app/user/user.module';
+import { UserModule } from './modules/user/user.module';
+import { TodoModule } from './modules/todo/todo.module';
+import { AuthGuard } from './interceptors/guard/auth.guard';
 
 @Module({
   imports: [
     UserModule,
+    TodoModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -23,8 +25,8 @@ import { UserModule } from './resources/app/user/user.module';
   providers: [
     {
       provide: APP_GUARD,
-      useClass: TokenGuard,
-    },
+      useClass: AuthGuard
+    }
   ],
 })
 export class AppModule { }
