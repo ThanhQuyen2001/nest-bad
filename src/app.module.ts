@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
-import { TokenGuard } from './guard/auth.guard';
+import { TokenGuard } from './interceptors/guard/auth.guard';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
-import { UserModule } from './resources/app/user/user.module';
-import { TodoModule } from './resources/app/todo/todo.module';
+import { UserModule } from './modules/user/user.module';
+import { TodoModule } from './modules/todo/todo.module';
 
 @Module({
   imports: [

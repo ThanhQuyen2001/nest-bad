@@ -1,7 +1,7 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
-import { CanDto } from 'src/decorator/permission/permission.dto';
+import { CanDto } from 'src/interceptors/permission/permission.dto';
 
 const permissions = [
     {

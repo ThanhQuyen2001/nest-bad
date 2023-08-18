@@ -1,9 +1,9 @@
 import { Injectable, Scope } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { TodoEntity } from "./todo.entity";
-import { CreateTodoDto } from "./todo-dto/create-todo.dto";
+import { CreateTodoDto } from "../../interfaces/todo/create-todo.dto";
 import { Repository } from "typeorm";
-import { UpdateTodoDto } from "./todo-dto/update-todo.dto";
+import { UpdateTodoDto } from "src/interfaces/todo/update-todo.dto";
 
 @Injectable({
     scope: Scope.TRANSIENT

@@ -1,9 +1,9 @@
 import { Body, Controller, Inject, Post, Get } from '@nestjs/common';
-import { CreateUserDto } from './user-dto/user-create.dto';
-import { ResponseSuccess } from 'src/decorator/response-data/response-success.base';
+import { CreateUserDto } from '../../interfaces/user/user-create.dto';
+import { ResponseSuccess } from 'src/utils/response-success.base';
 import { UserService } from './user.service';
-import { Can } from 'src/decorator/permission/permission.decorator';
-import { ResponseError } from 'src/decorator/response-data/response-error.base';
+import { Can } from 'src/interceptors/permission/permission.decorator';
+import { ResponseError } from 'src/utils/response-error.base';
 
 @Controller('users')
 export class UserController {

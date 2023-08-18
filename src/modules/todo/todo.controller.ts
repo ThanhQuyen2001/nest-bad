@@ -1,10 +1,10 @@
 import { Body, Controller, Get, Inject, Param, Post, Put } from '@nestjs/common';
-import { ResponseSuccess } from 'src/decorator/response-data/response-success.base';
+import { ResponseSuccess } from 'src/utils/response-success.base';
 import { TodoService } from './todo.service';
-import { ResponseError } from 'src/decorator/response-data/response-error.base';
-import { CreateTodoDto } from './todo-dto/create-todo.dto';
-import { UpdateTodoDto } from './todo-dto/update-todo.dto';
-import { Can } from 'src/decorator/permission/permission.decorator';
+import { ResponseError } from 'src/utils/response-error.base';
+import { CreateTodoDto } from '../../interfaces/todo/create-todo.dto';
+import { UpdateTodoDto } from 'src/interfaces/todo/update-todo.dto';
+import { Can } from 'src/interceptors/permission/permission.decorator';
 
 @Controller('todos')
 export class TodoController {
