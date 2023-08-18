@@ -1,62 +1,33 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
-import { CanDto } from 'src/interceptors/permission/permission.dto';
-
-const permissions = [
-    {
-        action: 'create',
-        subject: 'users'
-    },
-    {
-        action: 'update',
-        subject: 'users'
-    },
-    {
-        action: 'delete',
-        subject: 'users'
-    },
-    {
-        action: 'list',
-        subject: 'users'
-    },
-    {
-        action: 'read',
-        subject: 'users'
-    },
-    {
-        action: 'create',
-        subject: 'todos'
-    },
-    {
-        action: 'update',
-        subject: 'todos'
-    },
-    {
-        action: 'delete',
-        subject: 'todos'
-    },
-    {
-        action: 'list',
-        subject: 'todos'
-    },
-    {
-        action: 'read',
-        subject: 'todos'
-    }
-]
-
-function hasPermission(can: CanDto): boolean {
-    return permissions.some(p => p.action === can.action && p.subject === p.subject)
-}
+import { AUTH_SKIP_KEY, PERMISSION_KEY } from 'src/configs/auth.config';
+import { checkToken, hasPermission } from 'src/helpers/auth.helper';
 
 @Injectable()
-export class TokenGuard implements CanActivate {
+export class AuthGuard implements CanActivate {
     constructor(private reflector: Reflector) { }
     canActivate(
         context: ExecutionContext,
     ): boolean | Promise<boolean> | Observable<boolean> {
-        const can = this.reflector.get<CanDto>('can', context.getHandler());
-        return hasPermission(can)
+        try {
+            // skip
+            let skipGuard = this.reflector.get<boolean>(AUTH_SKIP_KEY, context.getHandler());
+            if (skipGuard) return true
+
+            // token
+            let request = context.switchToHttp().getRequest();
+            let token = request.headers.authorization?.split(' ')[1];
+            if (token && checkToken(token)) {
+                // permission
+                let can = this.reflector.get<{ action: string, subject: string }>(PERMISSION_KEY, context.getHandler());
+                return hasPermission(can)
+            }
+            else {
+                return false
+            }
+        } catch (error) {
+            return false
+        }
     }
 }

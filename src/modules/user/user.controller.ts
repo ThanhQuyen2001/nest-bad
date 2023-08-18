@@ -1,9 +1,8 @@
 import { Body, Controller, Inject, Post, Get } from '@nestjs/common';
 import { CreateUserDto } from '../../interfaces/user/user-create.dto';
-import { ResponseSuccess } from 'src/utils/response-success.base';
+import { ResponseData } from 'src/helpers/response-data.helper';
 import { UserService } from './user.service';
-import { Can } from 'src/interceptors/permission/permission.decorator';
-import { ResponseError } from 'src/utils/response-error.base';
+import { Can } from 'src/interceptors/guard/auth.decorator';
 
 @Controller('users')
 export class UserController {
@@ -12,9 +11,9 @@ export class UserController {
     @Can('create', 'users')
     async createUser(@Body() body: CreateUserDto) {
         try {
-            return new ResponseSuccess<any>(await this.userService.createUser(body), 200, 'ok')
+            return new ResponseData<any>(await this.userService.createUser(body), 200, 'ok')
         } catch (error) {
-            return new ResponseError<any>(error, 403, 'not ok')
+            return new ResponseData<any>(error, 403, 'not ok')
         }
     }
 
@@ -22,9 +21,9 @@ export class UserController {
     @Can('list', 'users')
     async getAllUsers() {
         try {
-            return new ResponseSuccess<any>(await this.userService.getAllUser(), 200, 'ok')
+            return new ResponseData<any>(await this.userService.getAllUser(), 200, 'ok')
         } catch (error) {
-            return new ResponseError<any>(error, 200, 'ok')
+            return new ResponseData<any>(error, 200, 'ok')
 
         }
     }
